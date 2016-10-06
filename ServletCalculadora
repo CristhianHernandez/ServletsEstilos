@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>     
+        <div>TODO write content</div>
+        <form method="POST" action="Operacion">
+            <br/>
+            <input type="text" name="numero1" id="numero1">
+            <input type="text" name="numero2" id="numero2">
+            <br/>
+            <input type="submit" name="suma" id="suma" value="suma">
+            <input type="submit" name="resta" id="resta" value="resta">
+            <input type="submit" name="multiplicacion" id="suma" value="multiplicacion">
+            
+        </form>
+    </body>
+</html>
+
+
+
+
+SERVLET OPERACION
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package servletHTML;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ *
+ * @author Alumno
+ */
+@WebServlet(name = "Operacion", urlPatterns = {"/Operacion"})
+public class Operacion extends HttpServlet {
+
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse resp)
+            throws ServletException, IOException {
+        
+        int A = Integer.parseInt(request.getParameter("numero1"));
+        int B = Integer.parseInt(request.getParameter("numero2"));
+        int resultado;
+        String suma = request.getParameter("suma");
+        String resta = request.getParameter("resta");
+        String multiplicacion = request.getParameter("multiplicacion");
+        
+        if("multiplicacion".equals(multiplicacion)){
+            resultado = A * B;
+                response(resp, resultado);
+        } else if("resta".equals(resta)){
+            resultado = A - B;
+                response(resp, resultado);
+        } else if("suma".equals(suma)){
+            resultado = A + B;
+                response(resp, resultado);
+        }
+            
+        
+            
+        }
+     private void response(HttpServletResponse resp, int resultado)
+                throws IOException{
+            PrintWriter out = resp.getWriter();
+            
+                out.println("<html>");
+		out.println("<body BGCOLOR='GOLDENROD'>");
+		out.println("<h1>Tu resultado es: " + resultado + "</h1>");
+                out.println("<input type='button' name= 'regresar' value = 'regresar' a href='index.html'>");
+		out.println("</body>");
+		out.println("</html>");
+       
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
